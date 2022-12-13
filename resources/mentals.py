@@ -162,8 +162,8 @@ class Mental(UserBase):
         social_media_hours = args.get('social_media_hours')
         hobby_hours = args.get('hobby_hours')
         increased_sleep_hours= args.get('increased_sleep_hours')
-        pipe = load('../model.joblib')
-        # pipe = load('../mental-helps/model.pkl')
+        pipe = load('./model.joblib')
+        # pipe = load('./mental-helps/model.pkl')
         print("PIPE: ", pipe)
         d = {
                 'Age':Age,
@@ -183,11 +183,11 @@ class Mental(UserBase):
         #encoder
         categorical_features=['Age', 'Educational_level', 'Screening_time', 'Irregular_eating_habits', 'Exercise', 'depressiveness','overthinking','unnecessary_misunderstandings','online_courses']
         label_encoders = {}
-        enc = load('../encoder.joblib') 
+        enc = load('./encoder.joblib') 
         df_deploy_encoded = enc.transform(pr[categorical_features])
         pr[categorical_features]=df_deploy_encoded
         #scaler
-        same_standard_scaler = load('../scaler.joblib') 
+        same_standard_scaler = load('./scaler.joblib') 
         numerical_features = ['social_media_hours', 'hobby_hours','increased_sleep_hours']
         pr[numerical_features] = same_standard_scaler.transform(pr.loc[:, numerical_features])
         pred_cols = list(pr.columns.values)[:]

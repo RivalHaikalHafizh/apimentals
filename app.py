@@ -12,7 +12,6 @@ from flask_jwt_extended import (JWTManager,jwt_required,get_jwt,get_jwt_identity
 from datetime import datetime,timedelta,timezone
 #import module
 import models
-from resources.messages import messages_api
 from resources.users import users_api
 from resources.mentals import mentals_api
 
@@ -24,11 +23,14 @@ CORS(app,allow_headers=['Content-Type'])
 app.config["JWT_SECRET_KEY"] = "apimentalhelps"  
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=1)
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)
-app.register_blueprint(messages_api,url_prefix='/v1')
 app.register_blueprint(users_api,url_prefix='/v1')
 app.register_blueprint(mentals_api,url_prefix='/v1')
 jwt=JWTManager(app)
 
+@app.get("/")
+def home():
+    return "hello mental api :) github:https://github.com/RivalHaikalHafizh"
+    
 if __name__ == '__main__':
     models.initialize()   
     # Untuk mode pengembangan
